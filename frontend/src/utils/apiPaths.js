@@ -1,4 +1,5 @@
-export const BASE_URL = 'http://localhost:8000/';
+export const BASE_URL = 'https://expensetracker-production-a71f.up.railway.app/';
+// export const BASE_URL = 'http://localhost:8000/';
 
 // utils/apiPaths.js
 export const API_PATHS = {
