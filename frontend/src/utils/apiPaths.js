@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://expensetracker-production-a71f.up.railway.app/';
+export const BASE_URL = import.meta.env.VITE_BASE_URL;
 // export const BASE_URL = 'http://localhost:8000/';
 
 // utils/apiPaths.js
