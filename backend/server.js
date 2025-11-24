@@ -11,13 +11,12 @@ const dashboardRoutes = require("./routes/dashboardRoutes");
 const app = express();
 
 // Middleware
-app.use(cors(
-    {
-        origins: process.env.CLIENT_URL || "*",
-        methods: ["GET", "POST", "PUT", "DELETE"],
-        allowedHeaders: ["Content-Type", "Authorization"],
-    }
-));
+app.use(cors({
+    // correct option name is `origin` (not `origins`).
+    origin: process.env.CLIENT_URL || "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -31,6 +30,15 @@ app.use("/api/v1/dashboard",dashboardRoutes);
 
 // server uploads folders
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+// Global error handler (catches multer and other errors) - returns JSON for client
+app.use((err, req, res, next) => {
+    console.error('Error handler:', err && err.message ? err.message : err);
+    const statusCode = err && err.statusCode ? err.statusCode : 500;
+    res.status(statusCode).json({
+        message: err && err.message ? err.message : 'Internal Server Error'
+    });
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
