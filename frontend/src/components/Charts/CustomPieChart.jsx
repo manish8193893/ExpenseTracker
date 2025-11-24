@@ -4,10 +4,9 @@ import CustomTooltip from './CustomTooltip'
 import CustomLengend from './CustomLengend'
 
 const CustomPieChart = ({ data, label, totalAmount, colors, showTextAnchor }) => {
-    console.log(data)
     return (
         <>
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer width="100%" height={400} className="p-2">
                 <PieChart>
                     <Pie
                         data={data}
