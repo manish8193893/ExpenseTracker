@@ -10,6 +10,11 @@ const dashboardRoutes = require("./routes/dashboardRoutes");
 
 const app = express();
 
+// If the app runs behind a proxy (Railway, Heroku, Vercel, etc.),
+// enable trust proxy so `req.protocol` reflects the original request
+// protocol (useful when building absolute URLs like image links).
+app.set('trust proxy', true);
+
 // Middleware
 app.use(cors({
     // correct option name is `origin` (not `origins`).
