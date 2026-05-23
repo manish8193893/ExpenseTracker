@@ -3,7 +3,7 @@ const Income = require('../models/Income');
 
 // Add income source
 exports.addIncome = async (req, res) => {
-    const userId = req.user.id;
+    const userId = req.user._id;
 
     try {
         const { icon, source, amount, date } = req.body;
@@ -33,7 +33,7 @@ exports.addIncome = async (req, res) => {
 
 // Get All Income Sources
 exports.getAllIncome = async (req, res) => {
-    const userId = req.user.id;
+    const userId = req.user._id;
 
     try {
         // Fetch all income records for the user
@@ -58,7 +58,7 @@ exports.deleteIncome = async (req, res) => {
 
 // download income records as an Excel file
 exports.downloadIncomeExcel = async (req, res) => {
-    const userId = req.user.id;
+    const userId = req.user._id;
 
     try {
         const incomes = await Income.find({ userId }).sort({ date: -1 });

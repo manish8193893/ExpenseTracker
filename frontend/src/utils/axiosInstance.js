@@ -18,6 +18,13 @@ axiosInstance.interceptors.request.use(
         if (accessToken) {
             config.headers.Authorization = `Bearer ${accessToken}`;
         }
+        
+        // Don't force Content-Type for FormData - let axios handle it
+        // This is critical for file uploads to work properly
+        if (config.data instanceof FormData) {
+            delete config.headers['Content-Type'];
+        }
+        
         return config;
     },
     (error) => {

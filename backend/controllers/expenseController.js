@@ -3,7 +3,7 @@ const Expense = require('../models/Expense');
 
 // Add income source
 exports.addExpense = async (req, res) => {
-    const userId = req.user.id;
+    const userId = req.user._id;
 
     try {
         const { icon, category, amount, date } = req.body;
@@ -33,7 +33,7 @@ exports.addExpense = async (req, res) => {
 
 // Get All Expense Sources
 exports.getAllExpense = async (req, res) => {
-    const userId = req.user.id;
+    const userId = req.user._id;
 
     try {
         // Fetch all income records for the user
@@ -58,7 +58,7 @@ exports.deleteExpense = async (req, res) => {
 
 // download income records as an Excel file
 exports.downloadExpenseExcel = async (req, res) => {
-    const userId = req.user.id;
+    const userId = req.user._id;
 
     try {
         const expense = await Expense.find({ userId }).sort({ date: -1 });

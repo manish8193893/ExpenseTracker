@@ -6,7 +6,7 @@ const { isValidObjectId, Types } = require('mongoose');
 exports.getDashboardData = async (req, res) => {
 
     try {
-        const userId = req.user.id;
+        const userId = req.user._id;
         const userObjectId = new Types.ObjectId(String(userId));
 
         // Fetch total income and expenses for the user

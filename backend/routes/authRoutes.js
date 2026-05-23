@@ -18,8 +18,10 @@ router.post("/upload-image", upload.single("image"), (req, res) => {
         return res.status(400).json({ message: "No file uploaded" });
     }
 
-    // Always return HTTPS URL (fix mixed content issue)
-    const imageUrl = `https://${req.get("host")}/uploads/${req.file.filename}`;
+    // Build URL using the same protocol as the request (http or https)
+    const protocol = req.protocol;
+    const host = req.get("host");
+    const imageUrl = `${protocol}://${host}/uploads/${req.file.filename}`;
 
     res.status(200).json({ imageUrl });
 });

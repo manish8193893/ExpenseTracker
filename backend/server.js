@@ -16,11 +16,12 @@ const app = express();
 app.set('trust proxy', true);
 
 // Middleware
+const clientUrl = (process.env.CLIENT_URL || "http://localhost:5173").replace(/\/$/, ''); // Remove trailing slash
 app.use(cors({
-    // correct option name is `origin` (not `origins`).
-    origin: process.env.CLIENT_URL || "*",
+    origin: clientUrl,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
+    maxAge: 3600,
 }));
 
 app.use(express.json());
@@ -45,7 +46,7 @@ app.use((err, req, res, next) => {
     });
 });
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
